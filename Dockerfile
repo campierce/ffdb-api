@@ -1,11 +1,11 @@
-FROM python:3.11-slim
+# auto-tunes number of worker processes
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.11-slim
 
-WORKDIR /code
+COPY ./requirements.txt /app/requirements.txt
 
-COPY ./requirements.txt /code/requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+COPY ./app /app
 
-COPY ./app /code/app
-
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
+# inherits CMD from base image
+# assumes /app/main.py with app = FastAPI()
