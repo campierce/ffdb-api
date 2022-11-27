@@ -47,6 +47,8 @@ def show():
     with Session(engine) as session:
         return session.exec(select(RequestLog)).all()
 
+# stop writing to db until there's auth in place
+"""
 @app.get("/{var}")
 def sayhello(var: str):
     rec = RequestLog(path=var, time=datetime.now())
@@ -54,3 +56,4 @@ def sayhello(var: str):
         session.add(rec)
         session.commit()
     return {"hello": var}
+"""
